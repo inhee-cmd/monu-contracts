@@ -7,50 +7,121 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Noto Sans KR",sans-serif;background:#f0f2f5;color:#333;font-size:14px;line-height:1.6}#hdr{background:#1B2B4A;color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}#hdr .logo{font-size:16px;font-weight:700;color:#E85D26}#hdr .sub{font-size:11px;color:#aab}#hdr .cust{font-size:12px;color:#dde;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#steps{display:flex;background:#fff;border-bottom:1px solid #e0e4ea}.step-tab{flex:1;text-align:center;padding:10px 4px;font-size:11px;color:#999;border-bottom:3px solid transparent;cursor:default;transition:.2s}.step-tab.active{color:#E85D26;border-bottom-color:#E85D26;font-weight:700}.step-tab.done{color:#27ae60;border-bottom-color:#27ae60}.step-num{display:block;font-size:16px;font-weight:700;margin-bottom:2px}.page{display:none;padding:0 0 90px}.page.active{display:block}.contract-card{background:#fff;margin:12px;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow:hidden}.card-header{background:#1B2B4A;color:#fff;padding:14px 16px}.card-header h2{font-size:15px;font-weight:700;text-align:center;letter-spacing:1px}.card-header .subtitle{font-size:11px;text-align:center;color:#aab;margin-top:3px}.card-body{padding:14px 16px}.article{margin-bottom:10px}.article-title{font-weight:700;color:#1B2B4A;margin-bottom:4px;font-size:13px}.article p{font-size:12.5px;margin-bottom:3px;line-height:1.65}.article ol{padding-left:18px;font-size:12.5px;line-height:1.7}.sec-title{font-size:12px;font-weight:700;background:#f5f6f8;color:#1B2B4A;padding:6px 10px;border-left:3px solid #E85D26;margin:10px 0 6px}.info-table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0}.info-table th{background:#f5f6f8;color:#555;width:40%;padding:5px 8px;border:1px solid #dde;text-align:left;font-weight:500}.info-table td{padding:5px 8px;border:1px solid #dde;color:#1B2B4A;font-weight:500}.highlight{color:#E85D26;font-weight:700}.agree-box{background:#f8fafc;border:1px solid #dde;border-radius:6px;padding:10px 12px;margin:8px 0;font-size:11.5px;color:#555;max-height:140px;overflow-y:auto}.agree-box ol{padding-left:16px}.agree-check{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:13px;font-weight:500;cursor:pointer;background:#fff;margin:6px 12px;border-radius:6px;border:1px solid #e0e4ea}.agree-check input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:#E85D26}.sign-row{display:flex;gap:8px;margin:12px 0 8px}.sign-col{flex:1;border:1px solid #e0e4ea;border-radius:6px;padding:10px;text-align:center}.sign-col .party{font-size:11px;color:#888;margin-bottom:2px}.sign-col .party-name{font-size:13px;font-weight:700;color:#1B2B4A;margin-bottom:6px}canvas.stamp{display:block;margin:0 auto;opacity:.12;transition:opacity .4s}canvas.stamp.active{opacity:1}.date-line{font-size:12px;color:#888;text-align:center;margin:8px 0}.tiny{font-size:10px;color:#aaa;margin-top:4px}.hometax-check{font-size:12.5px;margin:4px 0 4px 4px}.hometax-check label{display:flex;align-items:flex-start;gap:6px}#bottom-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e0e4ea;padding:10px 16px;display:flex;gap:8px;z-index:90}.btn{border:none;border-radius:8px;padding:12px 14px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;transition:.2s;flex:1}.btn-sign{background:#1B2B4A;color:#fff}.btn-primary{background:#E85D26;color:#fff}.btn-pdf{background:#27ae60;color:#fff}.btn:disabled{background:#ccc;cursor:not-allowed}#error-page{display:none;text-align:center;padding:60px 20px}#error-page h2{color:#E85D26;font-size:18px;margin-bottom:10px}#spinner{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;align-items:center;justify-content:center;flex-direction:column;color:#fff}#spinner.show{display:flex}.spinner-ring{width:50px;height:50px;border:5px solid rgba(255,255,255,.3);border-top-color:#E85D26;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:12px}@keyframes spin{to{transform:rotate(360deg)}}</style>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans KR",sans-serif;background:#f0f2f5;color:#333;font-size:14px;line-height:1.6}
+#hdr{background:#1B2B4A;color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+#hdr .logo{font-size:16px;font-weight:700;color:#E85D26}
+#hdr .sub{font-size:11px;color:#aab}
+#hdr .cust{font-size:12px;color:#dde;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#steps{display:flex;background:#fff;border-bottom:1px solid #e0e4ea}
+.step-tab{flex:1;text-align:center;padding:10px 4px;font-size:11px;color:#999;border-bottom:3px solid transparent;cursor:default;transition:.2s}
+.step-tab.active{color:#E85D26;border-bottom-color:#E85D26;font-weight:700}
+.step-tab.done{color:#27ae60;border-bottom-color:#27ae60}
+.step-num{display:block;font-size:16px;font-weight:700;margin-bottom:2px}
+.page{display:none;padding:0 0 90px}.page.active{display:block}
+.contract-card{background:#fff;margin:12px;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow:hidden}
+.card-header{background:#1B2B4A;color:#fff;padding:14px 16px}
+.card-header h2{font-size:15px;font-weight:700;text-align:center;letter-spacing:1px}
+.card-header .subtitle{font-size:11px;text-align:center;color:#aab;margin-top:3px}
+.card-body{padding:14px 16px}
+.article{margin-bottom:10px}
+.article-title{font-weight:700;color:#1B2B4A;margin-bottom:4px;font-size:13px}
+.article p{font-size:12.5px;margin-bottom:3px;line-height:1.65}
+.article ol{padding-left:18px;font-size:12.5px;line-height:1.7}
+.sec-title{font-size:12px;font-weight:700;background:#f5f6f8;color:#1B2B4A;padding:6px 10px;border-left:3px solid #E85D26;margin:10px 0 6px}
+.info-table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0}
+.info-table th{background:#f5f6f8;color:#555;width:40%;padding:5px 8px;border:1px solid #dde;text-align:left;font-weight:500}
+.info-table td{padding:5px 8px;border:1px solid #dde;color:#1B2B4A;font-weight:500}
+.highlight{color:#E85D26;font-weight:700}
+.agree-box{background:#f8fafc;border:1px solid #dde;border-radius:6px;padding:10px 12px;margin:8px 0;font-size:11.5px;color:#555;max-height:140px;overflow-y:auto}
+.agree-box ol{padding-left:16px}
+.agree-check{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:13px;font-weight:500;cursor:pointer;background:#fff;margin:6px 12px;border-radius:6px;border:1px solid #e0e4ea}
+.agree-check input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:#E85D26}
+.sign-row{display:flex;gap:8px;margin:12px 0 8px}
+.sign-col{flex:1;border:1px solid #e0e4ea;border-radius:6px;padding:10px;text-align:center}
+.sign-col .party{font-size:11px;color:#888;margin-bottom:2px}
+.sign-col .party-name{font-size:13px;font-weight:700;color:#1B2B4A;margin-bottom:6px}
+canvas.stamp{display:block;margin:0 auto;opacity:.12;transition:opacity .4s}
+canvas.stamp.active{opacity:1}
+.date-line{font-size:12px;color:#888;text-align:center;margin:8px 0}
+.tiny{font-size:10px;color:#aaa;margin-top:4px}
+.hometax-check{font-size:12.5px;margin:4px 0 4px 4px}
+.hometax-check label{display:flex;align-items:flex-start;gap:6px}
+#bottom-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e0e4ea;padding:10px 16px;display:flex;gap:8px;z-index:90}
+.btn{border:none;border-radius:8px;padding:12px 14px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;transition:.2s;flex:1}
+.btn-sign{background:#1B2B4A;color:#fff}
+.btn-primary{background:#E85D26;color:#fff}
+.btn-pdf{background:#27ae60;color:#fff}
+.btn:disabled{background:#ccc;cursor:not-allowed}
+#error-page{display:none;text-align:center;padding:60px 20px}
+#error-page h2{color:#E85D26;font-size:18px;margin-bottom:10px}
+#spinner{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;align-items:center;justify-content:center;flex-direction:column;color:#fff}
+#spinner.show{display:flex}
+.spinner-ring{width:50px;height:50px;border:5px solid rgba(255,255,255,.3);border-top-color:#E85D26;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== Official Form Styles (Pages 2 & 3) ===== */
+.off-wrap{background:#fff;overflow-x:auto;margin:12px;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.off{padding:24px 20px;font-family:"Noto Sans KR",sans-serif;font-size:11px;color:#000;line-height:1.45;min-width:640px}
+.off .off-ver{font-size:9px;color:#666}
+.off .off-title{text-align:center;font-size:17px;font-weight:700;margin:6px 0 4px;letter-spacing:1px}
+.off .off-subtitle{text-align:center;font-size:11px;margin-bottom:10px}
+.off .off-section{font-size:11px;font-weight:700;margin:10px 0 4px}
+.off table{width:100%;border-collapse:collapse;margin:0 0 6px}
+.off table th,.off table td{border:1px solid #000;padding:3px 6px;font-size:10.5px;vertical-align:middle}
+.off table th{background:#f5f5f5;font-weight:600;text-align:center;white-space:nowrap}
+.off table td{font-weight:400}
+.off table td.val{color:#1a365d;font-weight:600}
+.off .off-terms{font-size:9.5px;line-height:1.55;margin:6px 0}
+.off .off-terms ol{padding-left:14px}
+.off .off-terms li{margin-bottom:2px}
+.off .off-agree-title{font-size:10px;font-weight:700;margin:6px 0 2px}
+.off .off-agree-body{font-size:9.5px;line-height:1.5;margin:0 0 4px;padding-left:2px}
+.off .off-agree-body p{margin-bottom:1px}
+.off .off-consent{font-size:10px;font-weight:600;margin:3px 0}
+.off .off-sign-area{display:flex;justify-content:space-between;align-items:flex-end;margin:10px 0 6px;padding:0 10px}
+.off .off-sign-block{text-align:center}
+.off .off-sign-block .label{font-size:10px;font-weight:600;margin-bottom:2px}
+.off .off-sign-block .name{font-size:11px;font-weight:500;min-width:60px;display:inline-block}
+.off .off-date-line{text-align:right;font-size:11px;margin:8px 20px 4px 0}
+.off .off-note{font-size:9px;color:#666;margin:4px 0;line-height:1.5}
+.off .off-note b{color:#c00}
+.off .off-divider{border:none;border-top:2px solid #000;margin:12px 0}
+
+/* 홈택스 specific */
+.off .ht-main-table{margin:8px 0}
+.off .ht-main-table td{padding:4px 8px}
+.off .ht-main-table .sec-label{background:#f5f5f5;font-weight:700;text-align:center;width:22%;vertical-align:top;line-height:1.6}
+.off .ht-check{font-size:10.5px;margin:2px 0}
+.off .off-warrant-title{text-align:center;font-size:14px;font-weight:700;letter-spacing:8px;border:2px solid #000;display:inline-block;padding:4px 16px;margin:8px 0}
+.off .off-bottom-note{font-size:9px;color:#555;line-height:1.5;margin-top:8px;border-top:1px solid #ccc;padding-top:6px}
+.off .off-bottom-note b{color:#c00}
+.off .off-size-note{text-align:right;font-size:8px;color:#999;margin-top:4px}
+</style>
 </head>
 <body>
 <div id="hdr"><div><div class="logo">세무회계 모누</div><div class="sub">전자 계약서</div></div><div class="cust" id="cust-name">로딩 중...</div></div>
 <div id="steps"><div class="step-tab active" id="s1"><span class="step-num">①</span>기장계약서</div><div class="step-tab" id="s2"><span class="step-num">②</span>CMS동의서</div><div class="step-tab" id="s3"><span class="step-num">③</span>홈택스동의서</div></div>
 <div id="error-page"><h2>⚠ 계약서 링크 오류</h2><p>올바른 계약서 링크가 아닙니다.<br>담당자에게 다시 요청해 주세요.</p><p style="margin-top:16px;font-size:12px;color:#aaa">세무회계 모누 · 010-4976-0815</p></div>
+
+<!-- ==================== PAGE 1: 기장계약서 ==================== -->
 <div class="page active" id="page1">
 <div class="contract-card" id="c1-card">
 <div class="card-header"><h2>稅務 代理 契約書</h2><div class="subtitle">&#9632; 기장대리 &#9633; 세무고문</div></div>
 <div class="card-body">
 <p style="margin-bottom:10px;font-size:12.5px">계약 당사자는 세무대리업무에 관한 위임계약을 다음과 같이 체결한다.</p>
-<div class="article"><div class="article-title">제 1조(업무)</div>
-<p><span id="v1-s" class="highlight">[상호]</span> &quot;갑&quot;은 &#40;&#8960;&#41;세무회계 모누 &quot;을&quot;을 대리인으로 하여 세무대리에 관한 업무를 위임한다.</p></div>
-<div class="article"><div class="article-title">제 2조(보수)</div>
-<p>&#9312; 본 계약에 따른 보수는 월정액 금 <span id="v1-k" class="highlight">[기장료]</span>(부가가치세 포함)으로 한다.</p>
-<p>&#9313; 결산 및 세무조정계산서 작성 업무에 대한 보수는 을이 매년 정하는 별도의 세무조정 보수 산정표에 의해서 산출된 금액으로 하며, 보수는 조정업무 종료 월의 말일까지 지급하기로 한다.(연말정산, 세액공제수수료등 별도. 업종별 할증가능.)</p>
-<p>&#9314; 본 계약 이외의 기타수수료(양도, 상속&#183;증여, 사후검증, 조세불복 등)는 전항의 보수와는 별도로 을의 보수규정에 따라 갑이 부담한다.</p>
-<p>&#9315; 기장 업무에 필요한 교통비, 출장비 등의 실비상당액은 갑이 부담한다.</p></div>
-<div class="article"><div class="article-title">제 3조(보수의 지급방법)</div>
-<p>&#9312; 보수의 지급 방법은 자동이체방식(CMS)이나 계좌이체 방식으로 매월 25일 결제(결제일이 휴일인 경우 그 익일)</p>
-<p>&#9313; 계좌번호 : 하나은행 164-910111-72004 (세무회계 모누 황인희)</p></div>
-<div class="article"><div class="article-title">제 4조(보수지급의 지체)</div>
-<p>&#9312; 갑이 본 계약에 정한 비용 또는 보수의 지급을 3개월을 초과하여 지체한 때에는 을은 갑에게 기장 계약 해임을 통보할 수 있다.</p>
-<p>&#9313; 전항의 경우 을은 신속하게 갑에게 그 취지를 통보하여야 한다.</p></div>
-<div class="article"><div class="article-title">제 5조(기간)</div>
-<p>본 계약의 유효기간은 계약일로부터 1년간으로 하고, 해약할 경우는 그 3개월 전에 서면으로 계약 종료 의사를 통지하여야 한다. 다만, 상호 통지가 없는 경우 본 계약은 계속 유효한 것으로 한다.</p></div>
-<div class="article"><div class="article-title">제 6조(의무)</div>
-<p>&#9312; 갑은 위임업무의 수행에 필요한 설명, 서류, 기록, 기타의 자료를 그 책임과 비용부담 하에 을에게 제공하여야 한다.</p>
-<p>&#9313; 갑은 을로부터 자료 등의 청구가 있는 경우에는 신속하게 제출하여야 한다. 을의 성실한 업무수행에 필요한 기간을 경과한 후에 자료 제출이 있었을 경우에는 그로 인한 불이익은 갑이 부담합니다.</p>
-<p>&#9314; 갑이 제공한 자료에 허위사항이 있거나 요구 자료의 지연제시 또는 미제출로 인해서 장래 갑에게 불이익한 행정처분 등이 발생하는 경우 을에게 책임을 묻지 아니한다.</p>
-<p>&#9315; 갑은 을에게 부당한 요구를 하지 않으며, 갑의 부당한 요구로 인해 을 또는 제3자에게 발생하는 모든 손실은 갑이 부담한다.</p></div>
-<div class="article"><div class="article-title">제 7조(정보 제공 및 기밀보장)</div>
-<p>갑은 국세청으로부터 제공되는 세무정보를 을이 제공받음에 동의하며, 을은 제공받은 세무정보 및 계약업무수행 과정에서 알게 된 갑의 기밀을 세무업무 처리를 위한 목적 외 사용하거나 누설하여서는 아니된다.</p></div>
-<div class="article"><div class="article-title">제 8조(해약의 책임)</div>
-<p>&#9312; 갑의 사정에 의해 본 계약이 해지될 경우 해약 이후에 야기되는 세무 처리에 대하여 을은 그 책임을 지지 아니한다.</p>
-<p>&#9313; 을의 사정에 의해 본 계약업무를 수행하지 못할 경우, 을은 그 시점까지 모든 업무를 정리하고 갑과 을은 상호 협의하여 본 계약업무를 종결시키기로 한다.</p></div>
-<div class="article"><div class="article-title">제 9조(업무수행의 불능)</div>
-<p>&#9312; 갑이 제공한 자료의 불비 및 사실과 다른 자료의 제시 등의 사유로 본 계약업무 수행이 불가능할 경우에 발생하는 문제에 대하여 을은 그 책임을 지지 아니한다. 이러한 경우에도 을이 갑에게 제공한 업무수행 기한까지 약정 보수를 지급하여야 한다.</p>
-<p>&#9313; 천재지변 기타 이에 준하는 사유로 본 계약을 이행할 수 없을 때는 본 계약 불이행의 책임은 갑&#183;을 쌍방에게 없는 것으로 한다.</p></div>
-<div class="article"><div class="article-title">제 10조(분쟁의 해결)</div>
-<p>본 계약에서 발생한 분쟁은 합의에 의하여 해결함을 원칙으로 하고, 당사자 사이에 해결되지 않은 분쟁은 중재법에 의한 중재기관의 중재에 의하여 최종 해결한다.</p></div>
-<div class="article"><div class="article-title">제 11조(기타)</div>
-<p>&#9312; 매출액과 업무량에 따라 보수를 재조정하기로 한다. (세무사보수표 기준)</p>
-<p>&#9313; 본 계약에 명시하지 아니한 사항은 일반 관례에 따라 갑과 을이 상호 합의하여 결정한다.</p></div>
+<div class="article"><div class="article-title">제 1조(업무)</div><p><span id="v1-s" class="highlight">[상호]</span> "갑"은 (㈜)세무회계 모누 "을"을 대리인으로 하여 세무대리에 관한 업무를 위임한다.</p></div>
+<div class="article"><div class="article-title">제 2조(보수)</div><p>&#9312; 본 계약에 따른 보수는 월정액 금 <span id="v1-k" class="highlight">[기장료]</span>(부가가치세 포함)으로 한다.</p><p>&#9313; 결산 및 세무조정계산서 작성 업무에 대한 보수는 을이 매년 정하는 별도의 세무조정 보수 산정표에 의해서 산출된 금액으로 하며, 보수는 조정업무 종료 월의 말일까지 지급하기로 한다.(연말정산, 세액공제수수료등 별도. 업종별 할증가능.)</p><p>&#9314; 본 계약 이외의 기타수수료(양도, 상속&#183;증여, 사후검증, 조세불복 등)는 전항의 보수와는 별도로 을의 보수규정에 따라 갑이 부담한다.</p><p>&#9315; 기장 업무에 필요한 교통비, 출장비 등의 실비상당액은 갑이 부담한다.</p></div>
+<div class="article"><div class="article-title">제 3조(보수의 지급방법)</div><p>&#9312; 보수의 지급 방법은 자동이체방식(CMS)이나 계좌이체 방식으로 매월 25일 결제(결제일이 휴일인 경우 그 익일)</p><p>&#9313; 계좌번호 : 하나은행 164-910111-72004 (세무회계 모누 황인희)</p></div>
+<div class="article"><div class="article-title">제 4조(보수지급의 지체)</div><p>&#9312; 갑이 본 계약에 정한 비용 또는 보수의 지급을 3개월을 초과하여 지체한 때에는 을은 갑에게 기장 계약 해임을 통보할 수 있다.</p><p>&#9313; 전항의 경우 을은 신속하게 갑에게 그 취지를 통보하여야 한다.</p></div>
+<div class="article"><div class="article-title">제 5조(기간)</div><p>본 계약의 유효기간은 계약일로부터 1년간으로 하고, 해약할 경우는 그 3개월 전에 서면으로 계약 종료 의사를 통지하여야 한다. 다만, 상호 통지가 없는 경우 본 계약은 계속 유효한 것으로 한다.</p></div>
+<div class="article"><div class="article-title">제 6조(의무)</div><p>&#9312; 갑은 위임업무의 수행에 필요한 설명, 서류, 기록, 기타의 자료를 그 책임과 비용부담 하에 을에게 제공하여야 한다.</p><p>&#9313; 갑은 을로부터 자료 등의 청구가 있는 경우에는 신속하게 제출하여야 한다. 을의 성실한 업무수행에 필요한 기간을 경과한 후에 자료 제출이 있었을 경우에는 그로 인한 불이익은 갑이 부담합니다.</p><p>&#9314; 갑이 제공한 자료에 허위사항이 있거나 요구 자료의 지연제시 또는 미제출로 인해서 장래 갑에게 불이익한 행정처분 등이 발생하는 경우 을에게 책임을 묻지 아니한다.</p><p>&#9315; 갑은 을에게 부당한 요구를 하지 않으며, 갑의 부당한 요구로 인해 을 또는 제3자에게 발생하는 모든 손실은 갑이 부담한다.</p></div>
+<div class="article"><div class="article-title">제 7조(정보 제공 및 기밀보장)</div><p>갑은 국세청으로부터 제공되는 세무정보를 을이 제공받음에 동의하며, 을은 제공받은 세무정보 및 계약업무수행 과정에서 알게 된 갑의 기밀을 세무업무 처리를 위한 목적 외 사용하거나 누설하여서는 아니된다.</p></div>
+<div class="article"><div class="article-title">제 8조(해약의 책임)</div><p>&#9312; 갑의 사정에 의해 본 계약이 해지될 경우 해약 이후에 야기되는 세무 처리에 대하여 을은 그 책임을 지지 아니한다.</p><p>&#9313; 을의 사정에 의해 본 계약업무를 수행하지 못할 경우, 을은 그 시점까지 모든 업무를 정리하고 갑과 을은 상호 협의하여 본 계약업무를 종결시키기로 한다.</p></div>
+<div class="article"><div class="article-title">제 9조(업무수행의 불능)</div><p>&#9312; 갑이 제공한 자료의 불비 및 사실과 다른 자료의 제시 등의 사유로 본 계약업무 수행이 불가능할 경우에 발생하는 문제에 대하여 을은 그 책임을 지지 아니한다. 이러한 경우에도 을이 갑에게 제공한 업무수행 기한까지 약정 보수를 지급하여야 한다.</p><p>&#9313; 천재지변 기타 이에 준하는 사유로 본 계약을 이행할 수 없을 때는 본 계약 불이행의 책임은 갑&#183;을 쌍방에게 없는 것으로 한다.</p></div>
+<div class="article"><div class="article-title">제 10조(분쟁의 해결)</div><p>본 계약에서 발생한 분쟁은 합의에 의하여 해결함을 원칙으로 하고, 당사자 사이에 해결되지 않은 분쟁은 중재법에 의한 중재기관의 중재에 의하여 최종 해결한다.</p></div>
+<div class="article"><div class="article-title">제 11조(기타)</div><p>&#9312; 매출액과 업무량에 따라 보수를 재조정하기로 한다. (세무사보수표 기준)</p><p>&#9313; 본 계약에 명시하지 아니한 사항은 일반 관례에 따라 갑과 을이 상호 합의하여 결정한다.</p></div>
 <div class="date-line" id="v1-d"></div>
 <div class="sign-row">
   <div class="sign-col"><div class="party">갑(甲) &#183; 의뢰인</div><div class="party-name" id="sg1-s">[상호]</div><div style="font-size:11px;color:#666;margin-bottom:6px" id="sg1-r">[대표자]</div><canvas id="stamp1" class="stamp" width="90" height="90"></canvas><div class="tiny" id="sg1-b"></div></div>
@@ -59,122 +130,284 @@
 <p style="font-size:10.5px;color:#888;margin-top:8px">이 계약의 성립을 증명하기 위해 본 계약서를 2통 작성하여 갑과 을이 각각 1통씩 소지한다.</p>
 </div></div>
 <label class="agree-check"><input type="checkbox" id="agree1" onchange="onAgree(1)">위 기장계약서 내용을 확인하고 동의합니다.</label>
-</div><div class="page" id="page2">
-<div class="contract-card" id="c2-card">
-<div class="card-header"><h2>CMS 자동이체 이용 신청서</h2><div class="subtitle">세무/회계 기장료 자동이체 &#183; 신규신청</div></div>
-<div class="card-body">
-<div class="sec-title">수납기관 정보</div>
-<table class="info-table">
-<tr><th>수납기관명</th><td>세무회계모누</td></tr><tr><th>대표자명</th><td>황인희</td></tr>
-<tr><th>사업자등록번호</th><td>326-02-02812</td></tr>
-<tr><th>자동이체 사유</th><td>세무 기장료 및 조정료 수납</td></tr>
-<tr><th>수납 요금</th><td class="highlight" id="v2-k">[기장료]</td></tr>
-<tr><th>지정 출금일</th><td>매월 25일</td></tr>
+</div>
+
+<!-- ==================== PAGE 2: CMS 자동이체 이용 신청서 (공식 양식) ==================== -->
+<div class="page" id="page2">
+<div class="off-wrap" id="c2-card">
+<div class="off">
+<div class="off-ver">Ver180824</div>
+<div class="off-title">세무/회계/노무 자동이체 이용 신청서</div>
+<div class="off-subtitle">(신청 구분(택 1): &#9632;신규 / &#9633;변경 / &#9633;해지)</div>
+
+<!-- 수납기관 및 요금정보 -->
+<div class="off-section">&#9672; 수납기관 및 요금정보[수납기관 기재란]</div>
+<table>
+<tr><th style="width:18%">수납 기관명</th><td style="width:32%">세무회계모누</td><th style="width:14%">대표자명</th><td style="width:36%">황인희</td></tr>
+<tr><th>사업장 주소</th><td colspan="3">서울시 송파구 올림픽로35가길 11, 한신잠실코아 411호</td></tr>
+<tr><th>사업자등록번호</th><td>326-02-02812</td><th>자동이체 사유</th><td>세무 기장료 및 조정료 수납</td></tr>
+<tr><th>출금통장 기재내역</th><td>세무회계모누</td><th>수납 요금</th><td class="val" id="v2-k2">[기장료]원</td></tr>
+<tr><th>납부자 번호<br>(고객번호)</th><td style="color:#999">생 략 가 능</td><th>이체 시작 월</th><td><span id="v2-start">2026</span>년 &nbsp;&nbsp; 월</td></tr>
+<tr><td colspan="2"></td><th>지정 출금일</th><td>매월 25일</td></tr>
 </table>
-<div class="sec-title">신청인 정보</div>
-<table class="info-table">
-<tr><th>신청인명</th><td id="v2-n">[신청인]</td></tr><tr><th>신청인 휴대번호</th><td id="v2-p">[휴대폰]</td></tr>
-<tr><th>예금주명</th><td id="v2-o">[예금주]</td></tr><tr><th>생년월일</th><td id="v2-b">[생년월일]</td></tr>
-<tr><th>은행(카드사)명</th><td id="v2-bk">[은행명]</td></tr><tr><th>계좌번호</th><td id="v2-ac">[계좌번호]</td></tr>
-<tr><th>사업자등록번호</th><td id="v2-bn">[사업자번호]</td></tr>
+
+<!-- 자동이체 신청정보 -->
+<div class="off-section">&#9672; 자동이체 신청정보[신청인 기재란]</div>
+<table>
+<tr><th style="width:18%">신청인명</th><td style="width:32%" class="val" id="v2-n">[신청인]</td><th style="width:18%">예금(카드)주와의<br>관계</th><td style="width:32%">본인</td></tr>
+<tr><th>신청인 연락처</th><td class="val" id="v2-contact"></td><th>신청인 휴대번호</th><td class="val" id="v2-p">[휴대폰]</td></tr>
 </table>
-<div class="sec-title">자동이체 서비스 약관</div>
-<div class="agree-box"><ol>
+<table>
+<tr><th colspan="4" style="background:#e8e8e8;text-align:center;font-weight:700;font-size:11px">자동이체 정보</th></tr>
+<tr><th style="width:18%">출금이체<br>결제수단</th><td style="width:14%">&#9632; 계좌</td><td colspan="2" style="font-size:9px;color:#666">* 계좌 결제 – 휴대폰번호로 개설된 <b style="color:#c00">평생계좌번호 이용 불가</b>(원계좌번호입력)</td></tr>
+<tr><th>예금주명</th><td class="val" id="v2-o">[예금주]</td><th style="width:20%">예금주 생년월일<br><span style="font-weight:400;font-size:9px">(주민번호 앞 6자리)</span></th><td class="val"><span id="v2-b">[생년월일]</span></td></tr>
+<tr><th>은행명</th><td class="val" id="v2-bk">[은행명]</td><th>사업자등록번호</th><td class="val" id="v2-bn">[사업자번호]</td></tr>
+<tr><th>계좌번호</th><td class="val" id="v2-ac">[계좌번호]</td><th>카드 유효기간</th><td>&nbsp;&nbsp;/&nbsp;&nbsp;(월/년)</td></tr>
+<tr><th>예금주 연락처</th><td class="val" id="v2-owner-tel"></td><th>예금주 휴대번호</th><td class="val" id="v2-owner-phone"></td></tr>
+</table>
+<p class="off-note">※ 평생계좌(휴대폰번호)번호, 법인공용카드, 선불카드, 해외발행카드 등 일부 계좌 및 카드는 자동이체 서비스 신청이 불가합니다.</p>
+
+<!-- 약관 -->
+<div style="text-align:center;font-weight:700;font-size:11px;margin:8px 0 4px;border-top:1px solid #000;border-bottom:1px solid #000;padding:3px 0">자동이체 서비스 약관</div>
+<div class="off-terms"><ol>
 <li>신청자는 본 신청서에 서명하거나 공인인증 및 그에 준하는 전자 인증절차를 통함으로써 본 서비스를 이용할 수 있습니다.</li>
 <li>회사는 서비스 제공을 위하여 이용자가 제출한 지급결제수단 정보를 해당 금융기관(통신사 포함)에 제공할 수 있습니다.</li>
-<li>자동이체 개시일을 이용자가 지정하지 않은 경우 사전 통지 받은 납기일을 최초 개시일로 하며, 출금은 이용업체와 협의한 날짜에 계좌출금이 이루어 집니다.</li>
-<li>자동이체 금액은 해당 지정 출금일 영업 시간 내에 입금된 예금에 한하여 출금 처리 되며, 이의가 있는 경우에는 이용업체에 협의하여 조정키로 합니다.</li>
+<li>자동이체 개시일을 이용자가 지정하지 않은 경우 재화 등을 공급하는 자로부터 사전 통지 받은 납기일을 최초 개시일로 하며, 출금은 이용업체와 협의한 날짜에 계좌출금이 이루어 집니다.</li>
+<li>자동이체 금액은 해당 지정 출금일 영업 시간 내에 입금된 예금(지정출금일에 입금된 타점권은 제외)에 한하여 출금 처리 되며, 출금이체 금액의 이의가 있는 경우에는 이용업체에 협의하여 조정키로 합니다.</li>
 <li>납기일에 동일한 수종의 자동이체 청구가 있는 경우 이체 우선 순위는 이용자의 거래 금융기관이 정하는 바에 따릅니다.</li>
 <li>자동이체 납부일이 영업일이 아닌 경우에는 다음 영업일을 납부일로 합니다.</li>
 <li>이용자가 자동이체 신청(신규, 해지, 변경)을 원하는 경우 해당 납기일 30일 전까지 회사에 통지해야 합니다.</li>
-<li>이용자가 제출한 지급결제수단의 잔액이 예정 결제금액보다 부족하거나 지급제한, 연체 등 납부자의 과실에 의해 발생하는 손해의 책임은 이용자에게 있습니다.</li>
+<li>이용자가 제출한 지급결제수단의 잔액(예금한도, 신용한도 등)이 예정 결제금액보다 부족하거나 지급제한, 연체 등 납부자의 과실에 의해 발생하는 손해의 책임은 이용자에게 있습니다.</li>
 <li>이용자가 금융기관 및 회사가 정하는 기간 동안 자동이체 이용 실적이 없는 경우 사전 통지 후 자동이체를 해지할 수 있습니다.</li>
 <li>회사는 이용자와의 자동이체서비스 이용과 관련된 구체적인 권리, 의무를 정하기 위하여 본 약관과는 별도로 자동이체서비스이용약관을 제정할 수 있습니다.</li>
 </ol></div>
-<div class="sec-title">개인정보 수집&#183;이용 동의</div>
-<div class="agree-box">
-<p><b>수집&#183;이용목적:</b> 자동이체를 통한 요금 수납, 민원처리 및 동의여부 통지</p>
-<p><b>수집항목:</b> 신청인(성명, 연락처, 휴대번호), 예금주명, 은행명, 계좌번호, 생년월일(사업자등록번호), 카드유효기간</p>
-<p><b>보유&#183;이용기간:</b> 해지일로부터 5년간 보존 후 파기(관계 법령에 의거)</p>
-<p style="margin-top:5px;color:#777">신청자는 개인정보 수집 및 이용을 거부할 수 있습니다. 단, 거부하는 경우 자동이체 신청이 처리되지 않습니다. &#9632;동의함</p>
+
+<!-- 개인정보 수집 및 이용 동의 -->
+<div class="off-agree-title">[개인정보 수집 및 이용 동의]</div>
+<div class="off-agree-body">
+<p>&#9670; 수집 및 이용목적: 자동이체를 통한 요금 수납, 민원처리 및 동의여부 통지,</p>
+<p>&#9670; 수집 항목: 신청인(성명, 연락처, 휴대번호), 예금(카드)주명, 은행(카드)명, 계좌(카드)번호, 생년월일(사업자등록번호), 카드유효기간</p>
+<p>&#9670; 보유 및 이용기간: 수집 이용 동의일부터 자동이체서비스 종료일(해지일)까지며, 보유는 해지일로부터 5년간 보존 후 파기(관계 법령에 의거)</p>
+<p style="font-size:9px;color:#666">신청자는 개인정보 수집 및 이용을 거부할 수 있습니다. 단, 거부하는 경우 자동이체 신청이 정상적으로 처리되지 않습니다.</p>
 </div>
-<div class="sec-title">개인정보 제3자 제공 동의</div>
-<div class="agree-box">
-<p><b>제공받는 자:</b> 나이스페이먼츠&#40;주&#41;, 은행(신한/하나/국민/농협/기업 등), 카드사(국민/비씨/삼성/현대/신한 등)</p>
-<p><b>이용목적:</b> 자동이체 서비스 제공, 출금동의 확인, 신규 등록 및 해지 사실 확인, 민원 처리</p>
-<p><b>보유기간:</b> 자동이체 신청부터 해지까지. 관련 법령에 의거 일정기간 보유.</p>
-<p style="margin-top:5px;color:#777">&#9632;동의함</p>
+<div class="off-consent">&#9632;동의함 &nbsp;&nbsp; &#9633;동의 안함</div>
+
+<!-- 개인정보 제3자 제공 동의 -->
+<div class="off-agree-title">[개인정보 제3자 제공 동의]</div>
+<div class="off-agree-body">
+<p>&#9670; 개인정보를 제공받는 자: 나이스페이먼츠 주식회사, 은행(신한/SC제일/씨티/하나/농협/기업/국민/저축/수협/신협/우체국/새마을금고/대구/부산/경남/광주/전북/조흥/제주), 카드사(국민/비씨/롯데/삼성/NH농협/현대/신한/하나/우리)</p>
+<p>&#9670; 개인정보를 제공받는 자의 개인정보 이용 목적: 자동이체 서비스 제공 및 출금동의 확인, 신규 등록 및 해지 사실 확인 및 통지, 민원 처리</p>
+<p>&#9670; 제공하는 개인정보의 항목: 신청(성명, 연락처, 휴대번호), 예금(카드)주명, 은행(카드)명, 계좌(카드)번호, 생년월일(사업자등록번호), 카드유효기간</p>
+<p>&#9670; 개인정보를 제공받는 자의 개인정보 보유 및 이용기간: 자동이체 신청부터 해지까지. 단, 관련 법령에 의거 일정기간 보유.</p>
+<p style="font-size:9px;color:#666">신청자는 개인정보 제3자 제공을 거부할 수 있습니다. 단, 거부하는 경우 자동이체 신청이 정상적으로 처리되지 않습니다.</p>
 </div>
-<div class="sec-title">금융거래정보 제공 동의</div>
-<div class="agree-box">본 신청과 관련하여 본인은 금융거래정보를 자동이체 신규 신청하는 때로부터 서면으로 해지 신청할 때까지 나이스페이먼츠&#40;주&#41;, 금융기관, 공공금융기관에 제공하는 것에 대하여 [금융실거래 및 비밀보장에 관한 법률]의 규정에 따라 동의합니다.</div>
-<div class="date-line" id="v2-d"></div>
-<div class="sign-row">
-  <div class="sign-col"><div class="party">신청인</div><div class="party-name" id="sg2-n">[신청인]</div><canvas id="stamp2" class="stamp" width="90" height="90"></canvas></div>
-  <div class="sign-col"><div class="party">예금&#40;카드&#41;주 동의</div><div class="party-name" id="sg2-o">[예금주]</div><canvas id="stamp2b" class="stamp" width="90" height="90"></canvas></div>
+<div class="off-consent">&#9632;동의함 &nbsp;&nbsp; &#9633;동의 안함</div>
+
+<!-- 금융거래정보 제공 동의 -->
+<div class="off-agree-title">[금융거래정보의 제공동의서]</div>
+<div class="off-agree-body">
+<p>본 신청과 관련하여 본인은 위 기재한 금융거래정보(신청인(성명, 연락처), 예금주명, 예금주휴대폰번호, 출금은행명, 계좌번호, 예금주 생년월일(사업자등록번호))를 자동이체 신규 신청하는 때로부터 서면으로 해지 신청할 때까지 나이스페이먼츠 주식회사, 금융기관, 공공금융기관에 제공하는 것에 대하여 [금융실거래 및 비밀보장에 관한 법률]의 규정에 따라 동의합니다.</p>
 </div>
-</div></div>
+
+<hr class="off-divider">
+<p style="font-size:10.5px;margin:6px 0;line-height:1.6">위와 같이 금융거래정보의 제공 및 개인정보 수집 및 이용, 개인정보 제3자 제공에 동의하며, 자동이체 서비스 약관을 확인하고 자동이체 이용을 신청합니다.</p>
+
+<div class="off-date-line" id="v2-d-off">&nbsp;&nbsp;&nbsp;&nbsp;년 &nbsp;&nbsp;&nbsp;&nbsp;월 &nbsp;&nbsp;&nbsp;&nbsp;일</div>
+
+<div class="off-sign-area">
+<div class="off-sign-block">
+<div class="label">신청인</div>
+<div class="name" id="sg2-n">[신청인]</div>
+<canvas id="stamp2" class="stamp" width="90" height="90"></canvas>
+<div style="font-size:9px;color:#888">(인) 또는 서명</div>
+</div>
+<div class="off-sign-block">
+<div class="label">예금(카드)주<br>동의란</div>
+<div class="name" id="sg2-o">[예금주]</div>
+<canvas id="stamp2b" class="stamp" width="90" height="90"></canvas>
+<div style="font-size:9px;color:#888">(인) 또는 서명</div>
+</div>
+</div>
+
+<p class="off-note"><b>*신청인과 예금주/카드주가 상이한 경우에는 예금주/카드주가 의 동의 필요하며, 날인 또는 서명은 출금통장의 거래날인, 서명 사용</b></p>
+
+</div>
+</div>
 <label class="agree-check"><input type="checkbox" id="agree2" onchange="onAgree(2)">위 CMS동의서 내용을 확인하고 동의합니다.</label>
-</div><div class="page" id="page3">
-<div class="contract-card" id="c3-card">
-<div class="card-header"><h2>홈택스 세무대리정보 이용신청서</h2><div class="subtitle">[별지 제6호 서식] &#183; 기존 이용 해지 후 새로운 정보이용 신청</div></div>
-<div class="card-body">
-<div class="sec-title">1. 신청인 및 사업장 정보</div>
-<table class="info-table">
-<tr><th>&#9312; 성명(대표자명)</th><td id="v3-r">[대표자]</td></tr>
-<tr><th>&#9313; 주민등록번호</th><td id="v3-rn">[주민번호]</td></tr>
-<tr><th>&#9314; 상호(법인명)</th><td id="v3-s">[상호]</td></tr>
-<tr><th>&#9315; 사업자등록번호</th><td id="v3-bn">[사업자번호]</td></tr>
-<tr><th>&#9316; 연락처(휴대폰)</th><td id="v3-p">[휴대폰]</td></tr>
+</div>
+
+<!-- ==================== PAGE 3: 홈택스 세무대리정보 이용(해지)신청서 (공식 양식) ==================== -->
+<div class="page" id="page3">
+<div class="off-wrap" id="c3-card">
+<div class="off">
+<div style="display:flex;justify-content:space-between;align-items:flex-start">
+<div class="off-ver">[별지 제6호 서식]</div>
+<div style="font-size:9px;color:#999">접수번호</div>
+</div>
+<div class="off-title">홈택스 세무대리정보 이용(해지)신청서</div>
+
+<!-- 메인 테이블 -->
+<table class="ht-main-table">
+<!-- 1. 신청인 및 사업장 -->
+<tr>
+<td class="sec-label" rowspan="6">1.신청인 및<br>정보이용(해지)<br>사업장</td>
+<td style="width:24%">&#9312; 성명(대표자명)</td>
+<td colspan="2" class="val" id="v3-r">[대표자]</td>
+</tr>
+<tr>
+<td>&#9313; 주민등록번호<br>(외국인등록번호 등)</td>
+<td colspan="2" class="val" id="v3-rn">[주민번호]</td>
+</tr>
+<tr>
+<td>&#9314;-1 상호(법인명)<br><span style="font-size:8px;color:#999">* 별지 작성 가능</span></td>
+<td class="val" id="v3-s">[상호]</td>
+<td><span style="font-size:9px">&#9315;-1 사업자등록번호</span><br><span class="val" id="v3-bn">[사업자번호]</span></td>
+</tr>
+<tr>
+<td>&#9314;-2</td><td></td><td><span style="font-size:9px">&#9315;-2</span></td>
+</tr>
+<tr>
+<td>&#9314;-3</td><td></td><td><span style="font-size:9px">&#9315;-3</span></td>
+</tr>
+<tr>
+<td colspan="3">&#9316; 연락처(전화번호: <span id="v3-tel" style="color:#1a365d"></span>) &nbsp;&nbsp; (휴대전화번호: <span class="val" id="v3-p">[휴대폰]</span>)</td>
+</tr>
+
+<!-- 2. 신청 구분 -->
+<tr>
+<td class="sec-label" rowspan="3">2.신청 구분</td>
+<td colspan="3"><div class="ht-check">&#9317; &#9632; 정보이용 신청</div></td>
+</tr>
+<tr>
+<td colspan="3"><div class="ht-check">&#9318; &#9633; 기존 정보이용 해지 후 새로운 정보이용 신청</div></td>
+</tr>
+<tr>
+<td colspan="3"><div class="ht-check">&#9319; &#9633; 정보이용 해지신청</div></td>
+</tr>
+
+<!-- 3. 세무대리정보 이용 구분 -->
+<tr>
+<td class="sec-label" rowspan="1" style="line-height:1.5">3.세무대리정보<br>이용 구분 등<br><span style="font-size:8px;font-weight:400">(정보이용 신청<br>시 작성)</span></td>
+<td colspan="3" style="line-height:1.7">
+<div class="ht-check">&#9320; 세무대리정보이용 구분 및 기간</div>
+<div class="ht-check" style="padding-left:10px">&#9658; 기장대리 : 동의 처리일로부터 <b style="color:#c00">해지일까지</b> &#9632;</div>
+<div class="ht-check" style="padding-left:10px">&#9658; 신고대리 : 동의 처리일로부터 <b style="color:#c00">당해 세무신고의 신고기한까지</b> &#9633;</div>
+<div class="ht-check" style="padding-left:14px">외부조정(법인) : 동의 처리일로부터 <b style="color:#c00">당해 세무신고의 신고기한까지</b> &#9633;</div>
+<p style="font-size:9px;color:#888;margin:3px 0">※ 세무대리정보 이용 범위: 「홈택스 이용에 관한 규정」 제54조의 정보</p>
+<p style="font-size:9px;color:#888;margin:0"><b style="color:#000">※ 신청인의 개인정보보호를 위하여 세무대리인과 위임계약이 해지된 경우 반드시<br>&nbsp;&nbsp;&nbsp;신청인 또는 세무대리인이 홈택스에서 수임등록을 해지하시기 바랍니다.</b></p>
+</td>
+</tr>
+
+<!-- 4. 세무대리인 -->
+<tr>
+<td class="sec-label" rowspan="2">4.정보이용(해지)<br>세무대리인</td>
+<td colspan="2">&#9321; 성명(상호) <span class="val">세무회계 모누</span></td>
+<td>&#9322; 사업자등록번호 <span class="val">326-02-02812</span></td>
+</tr>
+<tr>
+<td colspan="2">&#9323; 세무사관리번호 <span class="val">Z-2746-2</span></td>
+<td>&#9324; 연락처 <span class="val">010-4976-0815</span><br><span style="font-size:9px">(전화번호:02-424-0815)</span></td>
+</tr>
 </table>
-<div class="sec-title">2. 신청 구분</div>
-<div class="hometax-check"><label><input type="checkbox" checked disabled> &#9316;&#9313; 기존 정보이용 해지 후 새로운 정보이용 신청</label></div>
-<div class="sec-title">3. 세무대리정보 이용 구분</div>
-<div class="hometax-check"><label><input type="checkbox" checked disabled> &#9658; 기장대리 : 동의 처리일로부터 해지일까지</label></div>
-<p style="font-size:11px;color:#888;margin:4px 0 8px 4px">&#8251; 세무대리정보 이용 범위: 「홈택스 이용에 관한 규정」 제54조의 정보</p>
-<div class="sec-title">4. 세무대리인 정보</div>
-<table class="info-table">
-<tr><th>&#9319; 성명(상호)</th><td>세무회계 모누</td></tr>
-<tr><th>&#9320; 사업자등록번호</th><td>326-02-02812</td></tr>
-<tr><th>&#9321; 세무사관리번호</th><td>Z-2746-2</td></tr>
-<tr><th>&#9322; 연락처</th><td>010-4976-0815</td></tr>
+
+<p style="font-size:11px;margin:10px 0 6px;line-height:1.6">상기 세무대리인이 국세청 홈택스에서 제공되는 신청인의 세무관련 정보 이용(해지)에 대하여 동의합니다.</p>
+
+<div class="off-date-line" id="v3-d-off">&nbsp;&nbsp;&nbsp;&nbsp;년 &nbsp;&nbsp;&nbsp;&nbsp;월 &nbsp;&nbsp;&nbsp;&nbsp;일</div>
+
+<div class="off-sign-area" style="justify-content:flex-end">
+<div class="off-sign-block">
+<div class="label">신 청 인 :</div>
+<div class="name" id="sg3-n">[대표자]</div>
+<canvas id="stamp3" class="stamp" width="90" height="90"></canvas>
+<div style="font-size:9px;color:#888">(서명 또는 인)</div>
+</div>
+</div>
+<p style="text-align:center;font-size:11px;font-weight:500;margin:4px 0 12px"><b>세무서장</b> 귀하</p>
+
+<hr class="off-divider">
+
+<!-- 위임장 -->
+<div style="text-align:center;margin:10px 0 6px">
+<span class="off-warrant-title">위 임 장</span>
+<span style="font-size:10px;color:#666;margin-left:8px">(대리인에게 위임하는 경우 작성)</span>
+</div>
+<p style="font-size:10.5px;margin:6px 0;line-height:1.6">위 신청인 본인은 아래 위임받은 사람에게 홈택스 세무대리정보 이용(해지)신청에 관한 모든 권리와 의무를 위임합니다.</p>
+
+<div class="off-sign-area" style="justify-content:flex-start;margin:6px 0">
+<div class="off-sign-block" style="text-align:left">
+<span class="label">위임하는 사람(신청인) : </span>
+<span class="name" id="sg3b-n" style="min-width:80px">[대표자]</span>
+<canvas id="stamp3b" class="stamp" width="70" height="70" style="display:inline-block;vertical-align:middle;margin:0 4px"></canvas>
+<span style="font-size:9px;color:#888">(서명 또는 인)</span>
+</div>
+</div>
+
+<table style="margin:8px 0">
+<tr>
+<th style="width:22%;vertical-align:top" rowspan="4">위임받은<br>사 람</th>
+<td style="width:28%">성 명</td><td class="val">황인희</td>
+<td style="width:18%">주민등록번호</td><td class="val">890915-2012337</td>
+</tr>
+<tr><td colspan="2">위임하는 사람과의 관계 &nbsp; <span class="val">세무대리인</span></td>
+<td colspan="2">연락처(전화번호: <span class="val">010-4976-0815</span>)</td></tr>
 </table>
-<p style="font-size:12.5px;margin:10px 0 6px">상기 세무대리인이 국세청 홈택스에서 제공되는 신청인의 세무관련 정보 이용에 대하여 <b>동의합니다.</b></p>
-<div class="date-line" id="v3-d"></div>
-<div class="sign-row">
-  <div class="sign-col"><div class="party">신청인</div><div class="party-name" id="sg3-n">[대표자]</div><canvas id="stamp3" class="stamp" width="90" height="90"></canvas></div>
+
+<hr style="border:none;border-top:1px solid #000;margin:10px 0">
+
+<!-- 개인정보 수집·이용 동의 -->
+<div style="text-align:center;font-weight:700;font-size:11px;margin:6px 0">개인정보 수집 · 이용에 대한 동의<span style="font-weight:400;font-size:10px">(개인정보보호법 제24조)</span></div>
+<p style="font-size:9px;color:#666;margin:2px 0"><b style="color:#000">※ 동의를 거부할 권리가 있으며, 거부할 경우 신청서 처리 불가능 등의 불이익이 따를 수 있습니다.</b></p>
+<div class="off-agree-body" style="margin:4px 0">
+<p>&#9675; 수집·이용목적(신청서 처리, 사후관리 등) &nbsp;&nbsp; &#9675; 보유·이용기간 ( 5년 )</p>
+<p>&#9675; 수집대상 고유식별정보(주민등록번호, 외국인등록번호, 여권번호 등)</p>
 </div>
-<div class="sec-title" style="margin-top:14px">위임장</div>
-<p style="font-size:12px;margin:6px 0 8px">위 신청인 본인은 아래 위임받은 사람에게 홈택스 세무대리정보 이용(해지)신청에 관한 모든 권리와 의무를 위임합니다.</p>
-<table class="info-table">
-<tr><th>위임하는 사람(신청인)</th><td id="v3-w">[대표자]</td></tr>
-<tr><th>위임받은 사람 성명</th><td>황인희</td></tr>
-<tr><th>주민등록번호</th><td>890915-2012337</td></tr>
-<tr><th>관계</th><td>세무대리인</td></tr>
-<tr><th>연락처</th><td>010-4976-0815</td></tr>
-</table>
-<div class="sign-row" style="margin-top:8px">
-  <div class="sign-col"><div class="party">위임하는 사람(신청인)</div><div class="party-name" id="sg3b-n">[대표자]</div><canvas id="stamp3b" class="stamp" width="90" height="90"></canvas></div>
-  <div class="sign-col"><div class="party">위임받은 사람</div><div class="party-name">황인희</div><canvas id="stamp3c" class="stamp active" width="90" height="90"></canvas></div>
+<div class="off-consent">&#9632; 상기내용에 대해 동의합니다. &nbsp;&nbsp; &#9633; 상기내용에 대해 동의하지 않습니다.</div>
+
+<div class="off-sign-area" style="margin:8px 0">
+<div class="off-sign-block">
+<div class="label">신청인 :</div>
+<div class="name" id="sg3d-n">[대표자]</div>
+<canvas id="stamp3d" class="stamp" width="70" height="70"></canvas>
+<div style="font-size:9px;color:#888">(서명 또는 인)</div>
 </div>
-<div class="sec-title" style="margin-top:12px">개인정보 수집&#183;이용 동의 (개인정보보호법 제24조)</div>
-<div class="agree-box">
-<p>수집&#183;이용목적: 신청서 처리, 사후관리 등 / 보유&#183;이용기간: 5년</p>
-<p>수집대상 고유식별정보: 주민등록번호, 외국인등록번호, 여권번호 등</p>
-<p style="margin-top:5px;color:#777">&#8251; 동의를 거부할 권리가 있으며, 거부할 경우 신청서 처리가 불가능합니다.</p>
-<p style="margin-top:4px"><b>&#9632; 상기내용에 대해 동의합니다.</b></p>
+<div class="off-sign-block">
+<div class="label">위임받은 사람 :</div>
+<div class="name">황 인 희</div>
+<canvas id="stamp3e" class="stamp active" width="70" height="70"></canvas>
+<div style="font-size:9px;color:#888">(서명 또는 인)</div>
 </div>
-<div class="sign-row">
-  <div class="sign-col"><div class="party">신청인</div><div class="party-name" id="sg3d-n">[대표자]</div><canvas id="stamp3d" class="stamp" width="90" height="90"></canvas></div>
-  <div class="sign-col"><div class="party">위임받은 사람</div><div class="party-name">황 인 희</div><canvas id="stamp3e" class="stamp active" width="90" height="90"></canvas></div>
 </div>
-</div></div>
+
+<hr style="border:none;border-top:1px solid #ccc;margin:8px 0">
+<div class="off-bottom-note">
+<b>※ 정보이용(해지) 신청 시 준비하실 사항</b><br>
+1. 신청인 또는 국세기본법 제82조의 납세관리인이 신청 시: 신분증(주민등록증, 운전면허증, 여권 등)<br>
+2. 세무대리인 등 위임받은 사람이 신청 시: 위임하는 사람(법인의 경우 법인대표자 등)의 신분증 *사본 및 위임받은 사람의 신분증<br>
+<span style="font-size:8.5px;color:#888">&nbsp;&nbsp;* 위임하는 사람이 희망하는 경우에 3개월 이내에 발급된 인감증명서(사본), 법인인감증명서(사본), 본인서명사실확인서, 전자본인서명사실확인서 가능</span><br>
+<b style="color:#c00">※ 다른 사람의 인장 도용 등 허위로 위임장을 작성하여 신청할 경우에는 「형법」 제231조와 제232조에 따라 사문서 위·변조 죄로 5년 이하의 징역 또는 1천만원 이하의 벌금에 처하게 됩니다.</b>
+</div>
+<div class="off-size-note">210mm×297mm[백상지 80g/㎡(재활용품)]</div>
+
+</div>
+</div>
 <label class="agree-check"><input type="checkbox" id="agree3" onchange="onAgree(3)">위 홈택스동의서 내용을 확인하고 동의합니다.</label>
-</div><div id="bottom-bar"><button class="btn btn-sign" id="btn-sign" disabled onclick="doSign()">서명하기</button><button class="btn btn-primary" id="btn-next" disabled onclick="goNext()" style="display:none">다음 &rarr;</button><button class="btn btn-pdf" id="btn-pdf" style="display:none" onclick="downloadPDF()">PDF 저장</button></div><div id="spinner"><div class="spinner-ring"></div><div>PDF 생성 중...</div></div>
+</div>
+
+<!-- Bottom Bar -->
+<div id="bottom-bar">
+<button class="btn btn-sign" id="btn-sign" disabled onclick="doSign()">서명하기</button>
+<button class="btn btn-primary" id="btn-next" disabled onclick="goNext()" style="display:none">다음 &rarr;</button>
+<button class="btn btn-pdf" id="btn-pdf" style="display:none" onclick="downloadPDF()">PDF 저장</button>
+</div>
+<div id="spinner"><div class="spinner-ring"></div><div>PDF 생성 중...</div></div>
+
 <script>
 var D=null,currentStep=1;
 function decodeB64(b){var c=b.replace(/-/g,'+').replace(/_/g,'/');var p=c+'==='.slice(0,(4-c.length%4)%4);var r=atob(p);var a=new Uint8Array(r.length);for(var i=0;i<r.length;i++)a[i]=r.charCodeAt(i);return new TextDecoder('utf-8').decode(a);}
 function fmtMoney(v){return Number(v||0).toLocaleString('ko-KR')+'원';}
 function fmtDate(v){if(!v)return'';var d=new Date(v);if(!isNaN(d.getTime()))return d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일';var s=String(v).replace(/[^0-9]/g,'');if(s.length>=8)return s.slice(0,4)+'년 '+parseInt(s.slice(4,6))+'월 '+parseInt(s.slice(6,8))+'일';return String(v);}
+function getYear(v){if(!v)return new Date().getFullYear();var d=new Date(v);return isNaN(d.getTime())?new Date().getFullYear():d.getFullYear();}
+function getDateParts(v){if(!v)return{y:'',m:'',d:''};var dt=new Date(v);if(!isNaN(dt.getTime()))return{y:dt.getFullYear(),m:dt.getMonth()+1,d:dt.getDate()};return{y:'',m:'',d:''};}
 function getBirth6(v){var s=String(v||'').replace(/[^0-9]/g,'');return s.length>=8?s.slice(2,8):s.slice(0,6);}
 function maskRrn(v){var s=String(v||'');if(s.indexOf('-')>=0){var p=s.split('-');return p[0]+'-'+(p[1]||'').charAt(0)+'******';}if(s.length>=7)return s.slice(0,6)+'-'+s.charAt(6)+'******';return s;}
 function drawStamp(canvas,line1,line2,color){
@@ -193,16 +426,36 @@ ctx.fillText('印',cx,cy+R*0.62);ctx.globalAlpha=1;
 function drawFixedStamps(){var c='#CC2200';['stamp1b','stamp3c','stamp3e'].forEach(function(id){drawStamp(document.getElementById(id),'세무회계모누','황인희',c);});}
 function setText(id,val){var el=document.getElementById(id);if(el)el.textContent=val||'';}
 function populateData(){if(!D)return;var d=D;
+// Header
 setText('cust-name',(d.상호||'')+(d.대표자?' '+d.대표자:''));
+// Page 1
 setText('v1-s',d.상호);setText('v1-k',fmtMoney(d.기장료));setText('v1-d',fmtDate(d.계약일));
 setText('sg1-s',d.상호);setText('sg1-r','대표 '+(d.대표자||''));setText('sg1-b',d.사업자번호||'');
-setText('v2-k',fmtMoney(d.기장료));setText('v2-n',d.대표자);setText('v2-p',d.핸드폰||d.전화번호||'');
-setText('v2-o',d.예금주||d.상호);setText('v2-b',getBirth6(d.생년월일)+' - *******');
-setText('v2-bk',d.은행명);setText('v2-ac',d.계좌번호);setText('v2-bn',d.사업자번호);
-setText('v2-d',fmtDate(d.계약일));setText('sg2-n',d.대표자);setText('sg2-o',d.예금주||d.상호);
-setText('v3-r',d.대표자);setText('v3-rn',maskRrn(d.생년월일));setText('v3-s',d.상호);
-setText('v3-bn',d.사업자번호);setText('v3-p',d.핸드폰||d.전화번호||'');
-setText('v3-d',fmtDate(d.계약일));setText('v3-w',d.대표자);
+// Page 2 (CMS 공식 양식)
+setText('v2-k2',fmtMoney(d.기장료));
+setText('v2-start',getYear(d.계약일));
+setText('v2-n',d.대표자);
+setText('v2-contact',d.핸드폰||'');
+setText('v2-p',d.핸드폰||'');
+setText('v2-o',d.예금주||d.대표자);
+setText('v2-b',getBirth6(d.주민번호||d.생년월일)+' - *******');
+setText('v2-bk',d.은행명);
+setText('v2-ac',d.계좌번호);
+setText('v2-bn',d.사업자번호);
+setText('v2-owner-tel',d.핸드폰||'');
+setText('v2-owner-phone',d.핸드폰||'');
+var dp2=getDateParts(d.계약일);
+var el2d=document.getElementById('v2-d-off');
+if(el2d&&dp2.y)el2d.innerHTML=dp2.y+'년 &nbsp;'+dp2.m+'월 &nbsp;'+dp2.d+'일';
+setText('sg2-n',d.대표자);setText('sg2-o',d.예금주||d.대표자);
+// Page 3 (홈택스 공식 양식)
+setText('v3-r',d.대표자);setText('v3-rn',maskRrn(d.주민번호||d.생년월일));
+setText('v3-s',d.상호);setText('v3-bn',d.사업자번호);
+setText('v3-tel','');setText('v3-p',d.핸드폰||'');
+var dp3=getDateParts(d.계약일);
+var el3d=document.getElementById('v3-d-off');
+if(el3d&&dp3.y)el3d.innerHTML=dp3.y+'년 &nbsp;'+dp3.m+'월 &nbsp;'+dp3.d+'일';
+setText('v3-w',d.대표자);
 setText('sg3-n',d.대표자);setText('sg3b-n',d.대표자);setText('sg3d-n',d.대표자);
 }
 function onAgree(step){if(step!==currentStep)return;document.getElementById('btn-sign').disabled=!document.getElementById('agree'+step).checked;}
@@ -229,13 +482,17 @@ document.getElementById('btn-next').disabled=true;document.getElementById('btn-n
 }
 async function downloadPDF(){
 document.getElementById('spinner').classList.add('show');
-await new Promise(function(r){setTimeout(r,100);});
+/* 숨겨진 페이지를 임시로 표시 (html2canvas는 display:none 요소 캡처 불가) */
+var pageIds=['page1','page2','page3'];
+var savedDisplay=[];
+pageIds.forEach(function(id){var el=document.getElementById(id);savedDisplay.push(el.style.display);el.style.display='block';});
+await new Promise(function(r){setTimeout(r,300);});
 try{var pdf=new window.jspdf.jsPDF({unit:'mm',format:'a4'});
 var cards=['c1-card','c2-card','c3-card'];
 for(var i=0;i<cards.length;i++){
 var el=document.getElementById(cards[i]);
-var canvas=await html2canvas(el,{scale:1.8,useCORS:true,logging:false,backgroundColor:'#fff'});
-var imgData=canvas.toDataURL('image/jpeg',0.88);
+var canvas=await html2canvas(el,{scale:2,useCORS:true,logging:false,backgroundColor:'#fff'});
+var imgData=canvas.toDataURL('image/jpeg',0.92);
 var pdfW=210,pageH=297,pdfH=(canvas.height*pdfW)/canvas.width;
 if(i>0)pdf.addPage();
 if(pdfH<=pageH){pdf.addImage(imgData,'JPEG',0,0,pdfW,pdfH);}
@@ -245,11 +502,15 @@ var nm=(D&&D.상호)?D.상호:'고객';
 var dt=(D&&D.계약일)?String(D.계약일).slice(0,10).replace(/-/g,''):'';
 pdf.save('계약서_모누_'+nm+'_'+dt+'.pdf');
 }catch(e){alert('PDF 오류: '+e.message);}
-finally{document.getElementById('spinner').classList.remove('show');}
+finally{
+/* 원래 display 상태 복원 */
+pageIds.forEach(function(id,idx){document.getElementById(id).style.display=savedDisplay[idx];});
+document.getElementById('spinner').classList.remove('show');
+}
 }
 function init(){
 var params=new URLSearchParams(window.location.search);var b64=params.get('d');
-if(!b64){D={'상호':'[상호]','대표자':'[대표자]','사업자번호':'000-00-00000','주소':'[주소]','생년월일':'790101','은행명':'[은행명]','계좌번호':'[계좌번호]','예금주':'[예금주]','기장료':0,'계약일':new Date().toISOString().slice(0,10),'핸드폰':'010-0000-0000'};}
+if(!b64){D={'상호':'[상호]','대표자':'[대표자]','사업자번호':'000-00-00000','주소':'[주소]','생년월일':'790101','은행명':'[은행명]','계좌번호':'[계좌번호]','예금주':'[예금주]','기장료':0,'계약일':new Date().toISOString().slice(0,10),'핸드폰':'010-0000-0000','주민번호':''};}
 else{try{D=JSON.parse(decodeB64(b64));}
 catch(e){['page1','steps','bottom-bar'].forEach(function(id){document.getElementById(id).style.display='none';});
 document.getElementById('error-page').style.display='block';return;}}
