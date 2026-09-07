@@ -586,7 +586,7 @@ document.getElementById('complete-page').style.display='block';
 // 웹앱에서 계약정보 조회. GAS 웹앱은 googleusercontent 로 302 되는데
 // 환경에 따라 CORS 가 막히는 경우가 있어 JSONP 로 한 번 더 시도한다.
 function loadContract(cid,cb){
-var url=WEBHOOK_URL+'?page=contract&c='+encodeURIComponent(cid);
+var url=WEBHOOK_URL+'?page=contract&cid='+encodeURIComponent(cid);  // 'c' 는 GAS 웹앱 예약 파라미터(400)
 var done=false;
 function once(j){if(done)return;done=true;cb(j);}
 function jsonp(){
