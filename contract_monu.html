@@ -114,7 +114,7 @@ canvas.stamp.active{opacity:1}
 <p style="margin-bottom:10px;font-size:12.5px">계약 당사자는 세무대리업무에 관한 위임계약을 다음과 같이 체결한다.</p>
 <div class="article"><div class="article-title">제 1조(업무)</div><p><span id="v1-s" class="highlight">[상호]</span> "갑"은 (㈜)세무회계 모누 "을"을 대리인으로 하여 세무대리에 관한 업무를 위임한다.</p></div>
 <div class="article"><div class="article-title">제 2조(보수)</div><p>&#9312; 본 계약에 따른 보수는 월정액 금 <span id="v1-k" class="highlight">[기장료]</span>(부가가치세 포함)으로 한다.</p><p>&#9313; 결산 및 세무조정계산서 작성 업무에 대한 보수는 을이 매년 정하는 별도의 세무조정 보수 산정표에 의해서 산출된 금액으로 하며, 보수는 조정업무 종료 월의 말일까지 지급하기로 한다.(연말정산, 세액공제수수료등 별도. 업종별 할증가능.)</p><p>&#9314; 본 계약 이외의 기타수수료(양도, 상속&#183;증여, 사후검증, 조세불복 등)는 전항의 보수와는 별도로 을의 보수규정에 따라 갑이 부담한다.</p><p>&#9315; 기장 업무에 필요한 교통비, 출장비 등의 실비상당액은 갑이 부담한다.</p></div>
-<div class="article"><div class="article-title">제 3조(보수의 지급방법)</div><p>&#9312; 보수의 지급 방법은 자동이체방식(CMS)이나 계좌이체 방식으로 매월 25일 결제(결제일이 휴일인 경우 그 익일)</p><p>&#9313; 계좌번호 : 하나은행 164-910111-72004 (세무회계 모누 황인희)</p></div>
+<div class="article"><div class="article-title">제 3조(보수의 지급방법)</div><p>&#9312; 보수의 지급 방법은 자동이체방식(CMS)이나 계좌이체 방식으로 매월 20일 결제(결제일이 휴일인 경우 그 익일)</p><p>&#9313; 계좌번호 : 하나은행 164-910111-72004 (세무회계 모누 황인희)</p></div>
 <div class="article"><div class="article-title">제 4조(보수지급의 지체)</div><p>&#9312; 갑이 본 계약에 정한 비용 또는 보수의 지급을 3개월을 초과하여 지체한 때에는 을은 갑에게 기장 계약 해임을 통보할 수 있다.</p><p>&#9313; 전항의 경우 을은 신속하게 갑에게 그 취지를 통보하여야 한다.</p></div>
 <div class="article"><div class="article-title">제 5조(기간)</div><p>본 계약의 유효기간은 계약일로부터 1년간으로 하고, 해약할 경우는 그 3개월 전에 서면으로 계약 종료 의사를 통지하여야 한다. 다만, 상호 통지가 없는 경우 본 계약은 계속 유효한 것으로 한다.</p></div>
 <div class="article"><div class="article-title">제 6조(의무)</div><p>&#9312; 갑은 위임업무의 수행에 필요한 설명, 서류, 기록, 기타의 자료를 그 책임과 비용부담 하에 을에게 제공하여야 한다.</p><p>&#9313; 갑은 을로부터 자료 등의 청구가 있는 경우에는 신속하게 제출하여야 한다. 을의 성실한 업무수행에 필요한 기간을 경과한 후에 자료 제출이 있었을 경우에는 그로 인한 불이익은 갑이 부담합니다.</p><p>&#9314; 갑이 제공한 자료에 허위사항이 있거나 요구 자료의 지연제시 또는 미제출로 인해서 장래 갑에게 불이익한 행정처분 등이 발생하는 경우 을에게 책임을 묻지 아니한다.</p><p>&#9315; 갑은 을에게 부당한 요구를 하지 않으며, 갑의 부당한 요구로 인해 을 또는 제3자에게 발생하는 모든 손실은 갑이 부담한다.</p></div>
@@ -149,7 +149,7 @@ canvas.stamp.active{opacity:1}
 <tr><th>사업자등록번호</th><td>326-02-02812</td><th>자동이체 사유</th><td>세무 기장료 및 조정료 수납</td></tr>
 <tr><th>출금통장 기재내역</th><td>세무회계모누</td><th>수납 요금</th><td class="val" id="v2-k2">[기장료]원</td></tr>
 <tr><th>납부자 번호<br>(고객번호)</th><td style="color:#999">생 략 가 능</td><th>이체 시작 월</th><td><span id="v2-start">2026</span>년 &nbsp;&nbsp; 월</td></tr>
-<tr><td colspan="2"></td><th>지정 출금일</th><td>매월 25일</td></tr>
+<tr><td colspan="2"></td><th>지정 출금일</th><td>매월 20일</td></tr>
 </table>
 
 <!-- 자동이체 신청정보 -->
@@ -583,14 +583,47 @@ document.getElementById('steps').style.display='none';
 document.getElementById('bottom-bar').style.display='none';
 document.getElementById('complete-page').style.display='block';
 }
+// 웹앱에서 계약정보 조회. GAS 웹앱은 googleusercontent 로 302 되는데
+// 환경에 따라 CORS 가 막히는 경우가 있어 JSONP 로 한 번 더 시도한다.
+function loadContract(cid,cb){
+var url=WEBHOOK_URL+'?page=contract&c='+encodeURIComponent(cid);
+var done=false;
+function once(j){if(done)return;done=true;cb(j);}
+function jsonp(){
+var fn='__mc'+String(Math.floor(Math.random()*1e9));
+var sc=document.createElement('script');
+window[fn]=function(j){once(j);try{delete window[fn];}catch(e){}sc.parentNode&&sc.parentNode.removeChild(sc);};
+sc.src=url+'&callback='+fn;
+sc.onerror=function(){once(null);};
+document.head.appendChild(sc);
+}
+try{
+fetch(url,{cache:'no-store'})
+.then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();})
+.then(once)
+.catch(function(){jsonp();});
+}catch(e){jsonp();}
+}
 function init(){
-var params=new URLSearchParams(window.location.search);var b64=params.get('d');
-if(!b64){D={'상호':'[상호]','대표자':'[대표자]','사업자번호':'000-00-00000','주소':'[주소]','생년월일':'790101','은행명':'[은행명]','계좌번호':'[계좌번호]','예금주':'[예금주]','기장료':0,'계약일':new Date().toISOString().slice(0,10),'핸드폰':'010-0000-0000','주민번호':''};}
-else{try{D=JSON.parse(decodeB64(b64));}
-catch(e){['page1','steps','bottom-bar'].forEach(function(id){document.getElementById(id).style.display='none';});
-document.getElementById('error-page').style.display='block';return;}}
+var params=new URLSearchParams(window.location.search);
+var b64=params.get('d');var cid=params.get('c');
+function boot(){
 if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){populateData();drawFixedStamps();});}
 else{setTimeout(function(){populateData();drawFixedStamps();},500);}
+}
+function fail(){['page1','steps','bottom-bar'].forEach(function(id){document.getElementById(id).style.display='none';});
+document.getElementById('error-page').style.display='block';}
+// ?c=<id> : 단축 링크. 계약정보를 웹앱(구글시트)에서 읽는다 (?d= base64 방식도 계속 지원).
+// 저장소에 사본이 남지 않으므로, 서명 후 시트에서 계약정보JSON을 비우면 링크가 바로 무효가 된다.
+if(cid){
+if(!/^[A-Za-z0-9_-]{1,32}$/.test(cid)){fail();return;}
+loadContract(cid,function(j){if(!j||!j.ok||!j.data){fail();return;}D=j.data;boot();});
+return;
+}
+if(!b64){D={'상호':'[상호]','대표자':'[대표자]','사업자번호':'000-00-00000','주소':'[주소]','생년월일':'790101','은행명':'[은행명]','계좌번호':'[계좌번호]','예금주':'[예금주]','기장료':0,'계약일':new Date().toISOString().slice(0,10),'핸드폰':'010-0000-0000','주민번호':''};}
+else{try{D=JSON.parse(decodeB64(b64));}
+catch(e){fail();return;}}
+boot();
 }
 init();
 </script>
