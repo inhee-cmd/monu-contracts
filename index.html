@@ -179,16 +179,21 @@ function getBirth6(v){var s=String(v||'').replace(/[^0-9]/g,'');return s.length>
 function maskRrn(v){var s=String(v||'');if(s.indexOf('-')>=0){var p=s.split('-');return p[0]+'-'+(p[1]||'').charAt(0)+'******';}if(s.length>=7)return s.slice(0,6)+'-'+s.charAt(6)+'******';return s;}
 function drawStamp(canvas,line1,line2,color){
 var ctx=canvas.getContext('2d');var W=canvas.width,H=canvas.height,cx=W/2,cy=H/2;
-var R=Math.min(W,H)/2-3;color=color||'#CC2200';
-ctx.clearRect(0,0,W,H);ctx.globalAlpha=0.85;
-ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.strokeStyle=color;ctx.lineWidth=3;ctx.stroke();
-ctx.beginPath();ctx.arc(cx,cy,R-7,0,Math.PI*2);ctx.lineWidth=1.5;ctx.stroke();
-ctx.fillStyle=color;
-if(line1){var chars=line1.split('');var arcR=R-14;var spread=Math.min(Math.PI*0.82,chars.length*0.24);var startA=-Math.PI/2-spread/2;var step=chars.length>1?spread/(chars.length-1):0;var fs=Math.max(9,Math.floor(R*0.2));ctx.font='bold '+fs+'px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';chars.forEach(function(ch,i){var a=startA+i*step;ctx.save();ctx.translate(cx+arcR*Math.cos(a),cy+arcR*Math.sin(a));ctx.rotate(a+Math.PI/2);ctx.fillText(ch,0,0);ctx.restore();});}
-ctx.beginPath();ctx.moveTo(cx-R+12,cy-R*0.05);ctx.lineTo(cx+R-12,cy-R*0.05);ctx.lineWidth=0.8;ctx.stroke();
-if(line2){var maxW=(R-12)*2;var fs2=Math.floor(R*0.28);ctx.font='bold '+fs2+'px sans-serif';while(ctx.measureText(line2).width>maxW&&fs2>8){fs2--;ctx.font='bold '+fs2+'px sans-serif';}ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(line2,cx,cy+R*0.18);}
-ctx.font=Math.floor(R*0.22)+'px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
-ctx.fillText('印',cx,cy+R*0.62);ctx.globalAlpha=1;
+color=color||'#CC2200';
+ctx.clearRect(0,0,W,H);ctx.globalAlpha=0.9;
+var ry=H/2-3,rx=Math.min(W/2-3,ry*0.66);
+ctx.strokeStyle=color;ctx.lineWidth=Math.max(2,Math.round(rx*0.11));
+ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);ctx.stroke();
+var name=String(line2||line1||'').replace(/\s/g,'');var chars=name.split('');
+if(chars.length){
+ctx.fillStyle=color;ctx.textAlign='center';ctx.textBaseline='middle';
+var availH=ry*1.8,lineH=availH/chars.length;
+var fs=Math.max(7,Math.floor(Math.min(lineH*0.85,rx*1.25)));
+ctx.font='bold '+fs+'px "Malgun Gothic","맑은 고딕",sans-serif';
+var startY=cy-availH/2+lineH/2;
+chars.forEach(function(ch,i){ctx.fillText(ch,cx,startY+i*lineH);});
+}
+ctx.globalAlpha=1;
 }
 function drawFixedStamps(){var c='#CC2200';['stamp1b','stamp3c','stamp3e'].forEach(function(id){drawStamp(document.getElementById(id),'세무회계모누','황인희',c);});}
 function setText(id,val){var el=document.getElementById(id);if(el)el.textContent=val||'';}
